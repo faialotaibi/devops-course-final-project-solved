@@ -20,7 +20,9 @@ jobs:
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ vars.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t faizaben/vote-app:$GITHUB_SHA .
+        run: docker build -t faizaben/vote-app:$GITHUB_SHA -t faizaben/vote-app:latest .
 
       - name: Push Docker image
-        run: docker push faizaben/vote-app:$GITHUB_SHA
+        run: |
+          docker push faizaben/vote-app:$GITHUB_SHA
+          docker push faizaben/vote-app:latest
